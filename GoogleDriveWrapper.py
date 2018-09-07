@@ -10,7 +10,8 @@ class Drive:
 
     @property
     def auth(self):
-        credentialsFileName = 'credentials.json'
+        dir = os.path.dirname(os.path.realpath(__file__))
+        credentialsFileName = os.path.join(dir,'credentials.json')
         gauth = GoogleAuth()
         gauth.LoadCredentialsFile(credentialsFileName)
 
@@ -58,7 +59,7 @@ class Folder:
 
     def folder(self, createIfNotExists=False):
         parent_id = 'root'
-        folder = None
+        folder = {'id': parent_id} #by default we are root folder
         for component in self.path.parts:
             fileList = self.driveWrapper.fileListFrom(parent_id)
             filtered = list(filter(lambda f: f['title']==component, fileList))

@@ -5,7 +5,7 @@ from pathlib import Path, PurePath
 
 
 def parse_path():
-    parser = argparse.ArgumentParser(description='sync path to google drive')
+    parser = argparse.ArgumentParser(description='sync directory at a specified {path} to google drive')
     parser.add_argument('path', metavar='path', type=str, help='path to the directory to be synced')
     args = parser.parse_args()
     return Path(args.path).absolute()
