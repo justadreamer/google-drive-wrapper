@@ -49,6 +49,9 @@ class File:
     def id(self):
         return self.file['id']
 
+    def delete(self):
+        self.file.Delete()
+
 
 class Folder:
     def __init__(self, path: PurePath, createIfNotExists=False):
@@ -111,6 +114,8 @@ class Folder:
             if serverFile.fileSize == os.stat(path).st_size:
                 print(serverFile.title + " already uploaded")
                 return
+            else:
+                serverFile.delete() #we are going to replace this file
 
         metadata = { 'parents': [ { "kind": "drive#fileLink", "id": self.folder['id'] } ], 'title': fileName }
         file = self.driveWrapper.drive.CreateFile(metadata=metadata)
